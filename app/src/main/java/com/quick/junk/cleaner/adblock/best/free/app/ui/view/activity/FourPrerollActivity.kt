@@ -18,7 +18,7 @@ class FourPrerollActivity: AppCompatActivity() {
             .into(findViewById(R.id.image))
 
         findViewById<View>(R.id.continue_btn).setOnClickListener {
-            startActivity(Intent(this, FirstSubActivity::class.java))
+            startActivity(Intent(this, MaineActivity::class.java))
             finish()
         }
     }

@@ -20,6 +20,9 @@ class MaineActivity: AppCompatActivity() {
         findViewById<View>(R.id.adblock).setOnClickListener {
             startActivity(Intent(this, AdBlockActivity::class.java))
         }
+        findViewById<View>(R.id.cleaner).setOnClickListener {
+            startActivity(Intent(this, CleanerActivity::class.java))
+        }
 
         findViewById<View>(R.id.premium).setOnClickListener {
             startActivity(Intent(this, PremiumActivity::class.java))

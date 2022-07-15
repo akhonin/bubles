@@ -261,22 +261,22 @@ class SplashActivity: AppCompatActivity() {
         }
         println("ActivitySplash funnel $funnel")
 
-        Purchases.sharedInstance.getCustomerInfo(object : ReceiveCustomerInfoCallback {
-
-            override fun onError(error: PurchasesError) {
-                println("Purchases onError ${error}")
-                startUi(funnel)
-            }
-            override fun onReceived(customerInfo: CustomerInfo) {
-                val isHaveSubscribe = customerInfo.entitlements["premium"]?.isActive == true
-                println("isHaveSubscribe ${isHaveSubscribe}")
-                SharedSettings.setBoolean(IS_NO_VIP_PREF_KEY, !isHaveSubscribe)
-//                isHaveSubscribe = true
-                if(isHaveSubscribe)funnel=null
-                startUi(funnel)
-            }
-        })
-
+//        Purchases.sharedInstance.getCustomerInfo(object : ReceiveCustomerInfoCallback {
+//
+//            override fun onError(error: PurchasesError) {
+//                println("Purchases onError ${error}")
+//                startUi(funnel)
+//            }
+//            override fun onReceived(customerInfo: CustomerInfo) {
+//                val isHaveSubscribe = customerInfo.entitlements["premium"]?.isActive == true
+//                println("isHaveSubscribe ${isHaveSubscribe}")
+//                SharedSettings.setBoolean(IS_NO_VIP_PREF_KEY, !isHaveSubscribe)
+////                isHaveSubscribe = true
+//                if(isHaveSubscribe)funnel=null
+//                startUi(funnel)
+//            }
+//        })
+        startUi(funnel)
     }
 
     var mIntent:Intent? = null

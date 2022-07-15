@@ -27,15 +27,26 @@ android {
         ]
     }
 
+    signingConfigs {
+        config {
+            keyAlias 'key0'
+            keyPassword 'root15'
+            storeFile file('../junk_clean')
+            storePassword 'root15'
+        }
+    }
+
     buildTypes {
         release {
             debuggable true
-            minifyEnabled false
+            minifyEnabled true
+            signingConfig signingConfigs.config
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
             debuggable true
             minifyEnabled false
+            signingConfig signingConfigs.config
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

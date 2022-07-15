@@ -33,8 +33,8 @@
     <string name="action_rotate">Rotate</string>
 
 
-    <string name="facebook_app_id" translatable="false">709546473605225</string>
-    <string name="facebook_client_token" translatable="false">311faa5449b4c61c063d0dfaf478c8d3</string>
+    <string name="facebook_app_id" translatable="false">554814982951810</string>
+    <string name="facebook_client_token" translatable="false">23e4b84e0a31332afd1a713156f77ee3</string>
 
     <!-- others -->
     <string name="choose">Choose</string>
