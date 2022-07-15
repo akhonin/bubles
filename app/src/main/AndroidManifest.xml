@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.galaxy.bubbles">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
+
+    <application
+        android:name=".App"
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/CustomTheme"
+        tools:targetApi="31"
+        android:requestLegacyExternalStorage="true">
+        <activity
+            android:name=".ui.view.activity.SplashActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="mobileinternetprotectionvpn"/>
+                <data
+                    android:host="mobileinternetprotectionvpn.page.link"
+                    android:scheme="https" />
+                <data
+                    android:host="mobileinternetprotectionvpn.page.link"
+                    android:scheme="http" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.view.activity.FirstPrerollActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name"/>
+        <activity
+            android:name=".ui.view.activity.SecondPrerollActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name"/>
+        <activity
+            android:name=".ui.view.activity.ThirdPrerollActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name"/>
+        <activity
+            android:name=".ui.view.activity.FourPrerollActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name"/>
+        <activity
+            android:name=".ui.view.activity.FirstSubActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name"/>
+        <activity
+            android:name=".ui.view.activity.CleanerActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name"/>
+        <activity
+            android:name=".ui.view.activity.MaineActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name"/>
+        <activity
+            android:name=".ui.view.activity.ContactListActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name"/>
+        <activity
+            android:name=".ui.view.activity.ContactsActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name"/>
+        <activity
+            android:name=".ui.view.activity.SpeedTestActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name"/>
+        <activity
+            android:name=".ui.view.activity.AdBlockActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name"/>
+        <activity
+            android:name=".ui.view.activity.CleanerFolderActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name"/>
+        <activity
+            android:name=".ui.view.activity.CleanerGalleryActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name"/>
+        <activity
+            android:name=".ui.view.activity.CleanerFullScreenActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name"/>
+        <activity
+            android:name=".ui.view.activity.ImageActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name"/>
+
+
+        <service
+            android:name=".service.ForegroundService"
+            android:exported="true">
+        </service>
+
+        <service
+            android:name=".service.LocalVpnService"
+            android:permission="android.permission.BIND_VPN_SERVICE"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.net.VpnService" />
+            </intent-filter>
+        </service>
+    </application>
+
+</manifest>

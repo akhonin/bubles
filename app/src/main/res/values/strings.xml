@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">Bubbles</string>
+
+    <string name="dialog_cancel">Cancel</string>
+    <string name="dialog_confirm">Confirm</string>
+
+    <string name="dialog_message_permission">Please allow to access storage.</string>
+
+    <string name="name_new_slot">New Slot</string>
+
+    <!-- message -->
+    <string name="message_saved">It\'s saved.</string>
+    <string name="message_error_no_slot">Create a slot first.</string>
+    <string name="message_error_format">Cannot change the format.</string>
+    <string name="message_error_exist">The name already exists.</string>
+    <string name="message_error_same_directory">Cannot choose the same directory.</string>
+    <string name="message_error_default_directory">Cannot choose the default directory.</string>
+
+    <!-- action -->
+    <string name="action_add">Add</string>
+    <string name="action_slot">Slot</string>
+    <string name="action_search">Search</string>
+    <string name="action_sort">Sort</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_select_all">Select All</string>
+    <string name="action_share">Share</string>
+    <string name="action_copy">Copy</string>
+    <string name="action_move">Move</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_save">Save</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_information">Information</string>
+    <string name="action_rotate">Rotate</string>
+
+    <!-- others -->
+    <string name="choose">Choose</string>
+    <string name="preparing">Preparing</string>
+    <string name="sorting">Sorting</string>
+</resources>

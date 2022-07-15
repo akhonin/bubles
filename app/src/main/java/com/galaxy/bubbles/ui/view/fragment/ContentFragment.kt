@@ -1,0 +1,442 @@
+package com.galaxy.bubbles.ui.view.fragment
+
+import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
+import android.os.Build
+import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.provider.MediaStore
+import android.view.*
+import android.view.View.GONE
+import android.view.View.VISIBLE
+import android.widget.ImageView
+import android.widget.RelativeLayout
+import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.IntentSenderRequest
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.LinearLayoutCompat
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.galaxy.bubbles.R
+import com.galaxy.bubbles.controller.ContentController
+import com.galaxy.bubbles.controller.DeviceController
+import com.galaxy.bubbles.controller.SlotController
+import com.galaxy.bubbles.data.Config.Companion.INTENT_EXTRA_POSITION_CONTENT
+import com.galaxy.bubbles.data.Config.Companion.INTENT_EXTRA_POSITION_DIRECTORY
+import com.galaxy.bubbles.data.Config.Companion.KEY_CONTENT_SORT_ORDER
+import com.galaxy.bubbles.data.Config.Companion.KEY_DIRECTORY_POSITION
+import com.galaxy.bubbles.data.Config.Companion.MIME_TYPE_ALL
+import com.galaxy.bubbles.data.Config.Companion.MIME_TYPE_IMAGE
+import com.galaxy.bubbles.data.Config.Companion.MIME_TYPE_VIDEO
+import com.galaxy.bubbles.data.Config.Companion.SPAN_COUNT_CONTENT
+import com.galaxy.bubbles.data.Config.Companion.SPAN_COUNT_DIRECTORY
+import com.galaxy.bubbles.data.Directory
+import com.galaxy.bubbles.ui.view.activity.ImageActivity
+import com.michaelflisar.dragselectrecyclerview.DragSelectTouchListener
+import java.util.concurrent.TimeUnit
+
+
+class ContentFragment(private var directoryPosition: Int) : Fragment() {
+    companion object {
+        fun newInstance(directoryPosition: Int): ContentFragment {
+            return ContentFragment(directoryPosition)
+        }
+    }
+
+    private lateinit var rootView: View
+    private lateinit var imageResultLauncher: ActivityResultLauncher<Intent>
+    private lateinit var deleteResultLauncher: ActivityResultLauncher<IntentSenderRequest>
+    private var directory: Directory = ContentController.directoryArrayList[directoryPosition]
+
+    private lateinit var slotController: SlotController
+    private lateinit var contentController: ContentController
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var recyclerAdapter: DirectoryRecyclerAdapter
+    private lateinit var dragSelectTouchListener: DragSelectTouchListener
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        // initialize root view
+        rootView = inflater.inflate(R.layout.fragment_main, container, false)
+
+        // set options menu
+        setHasOptionsMenu(true)
+
+        // initialize activity result launcher
+        imageResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                directoryPosition = result.data!!.getIntExtra(INTENT_EXTRA_POSITION_DIRECTORY, -1)
+            }
+        }
+
+        deleteResultLauncher = registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { result: ActivityResult ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                // case delete all
+                if (recyclerAdapter.selectedHashSet.size == directory.contentArrayList.size) {
+                    // remove directory
+                    ContentController.directoryArrayList.removeAt(directoryPosition)
+
+                    // set is selecting false
+                    recyclerAdapter.isSelecting = false
+
+                    // on back pressed
+                    requireActivity().onBackPressed()
+                } else {
+                    // initialize selected array
+                    val selectedArray = recyclerAdapter.selectedHashSet.toIntArray()
+                    selectedArray.sortDescending()
+
+                    // remove content
+                    for (position in selectedArray) {
+                        directory.contentArrayList.removeAt(position)
+                        recyclerAdapter.notifyItemRemoved(position)
+                    }
+
+                    // refresh directory date
+                    directory.refreshDate()
+
+                    // sort directory array list
+                    contentController.sortDirectoryArrayList()
+
+                    // initialize directory position again
+                    directoryPosition = ContentController.directoryArrayList.indexOf(directory)
+
+                    // clear selected hash set
+                    recyclerAdapter.selectedHashSet.clear()
+
+                    // set is selecting false
+                    recyclerAdapter.isSelecting = false
+
+                    // refresh action bar menu
+                    (context as FragmentActivity).invalidateOptionsMenu()
+                }
+            }
+        }
+
+        // initialize fragment result listener
+        (context as FragmentActivity).supportFragmentManager.setFragmentResultListener(KEY_CONTENT_SORT_ORDER, viewLifecycleOwner) { key: String, _: Bundle ->
+            if (key == KEY_CONTENT_SORT_ORDER) {
+                contentController.sortContentArrayList()
+                recyclerAdapter.notifyItemRangeChanged(0, directory.contentArrayList.size, false)
+            }
+        }
+        (context as FragmentActivity).supportFragmentManager.setFragmentResultListener(KEY_DIRECTORY_POSITION, viewLifecycleOwner) { key: String, bundle: Bundle ->
+            if (key == KEY_DIRECTORY_POSITION) {
+                directoryPosition = bundle.getInt(KEY_DIRECTORY_POSITION)
+            }
+        }
+
+        // initialize slot controller
+        slotController = SlotController(requireContext())
+
+        // initialize content controller
+        contentController = ContentController(requireContext())
+
+        // initialize directory recycler view
+        recyclerView = rootView.findViewById(R.id.recycler_thumbnail)
+        recyclerView.setHasFixedSize(true)
+        recyclerView.layoutManager = GridLayoutManager(context, SPAN_COUNT_CONTENT)
+
+        // initialize recycler adapter
+        recyclerAdapter = DirectoryRecyclerAdapter()
+        recyclerAdapter.setHasStableIds(true)
+        recyclerAdapter.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+        recyclerView.adapter = recyclerAdapter
+
+        // initialize drag selection listener
+        val onDragSelectionListener =
+            DragSelectTouchListener.OnDragSelectListener { start: Int, end: Int, isSelected: Boolean ->
+                recyclerAdapter.setRangeSelected(start, end, isSelected)
+            }
+
+        // initialize drag select touch listener
+        dragSelectTouchListener = DragSelectTouchListener()
+            // set drag selection listener
+            .withSelectListener(onDragSelectionListener)
+            // set options
+            .withMaxScrollDistance(24)
+
+        // add on item touch listener to recycler view
+//        recyclerView.addOnItemTouchListener(dragSelectTouchListener)
+
+        return rootView
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        val actionBar = (activity as AppCompatActivity).supportActionBar!!
+
+        // set display home as up enabled true
+        actionBar.setDisplayHomeAsUpEnabled(true)
+
+        // case is selecting
+        if (recyclerAdapter.isSelecting) {
+//            inflater.inflate(R.menu.menu_content_select, menu)
+        }
+        // case default
+        else {
+//            inflater.inflate(R.menu.menu_content, menu)
+            requireActivity().title = directory.name
+        }
+    }
+
+
+    fun refresh() {
+        Handler(Looper.myLooper()!!).post {
+            // backup directory
+            val backupDirectory = directory
+
+            // initialize contents
+            contentController.initializeContents()
+
+            // find directory
+            var isFound = false
+            for (i in ContentController.directoryArrayList.indices) {
+                if (ContentController.directoryArrayList[i].directoryPath == backupDirectory.directoryPath) {
+                    directoryPosition = i
+                    directory = ContentController.directoryArrayList[i]
+                    isFound = true
+                    break
+                }
+            }
+
+            // case same directory found
+            if (isFound) {
+                // case content changed
+                if (directory.contentArrayList != backupDirectory.contentArrayList) {
+                    recyclerAdapter.selectedHashSet.clear()
+                    recyclerAdapter.isSelecting = false
+                    (context as FragmentActivity).invalidateOptionsMenu()
+                    notifyDataSetChanged()
+                }
+            } else {
+                recyclerAdapter.isSelecting = false
+                requireActivity().onBackPressed()
+            }
+        }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun notifyDataSetChanged() {
+        // notify data set changed
+        recyclerAdapter.notifyDataSetChanged()
+    }
+
+    fun onBackPressed(): Boolean {
+        if (recyclerAdapter.isSelecting) {
+            recyclerAdapter.setSelectedAll(false)
+            recyclerAdapter.isSelecting = false
+            (context as FragmentActivity).invalidateOptionsMenu()
+            return true
+        }
+        return false
+    }
+
+    inner class DirectoryRecyclerAdapter : RecyclerView.Adapter<DirectoryRecyclerAdapter.DirectoryViewHolder>() {
+        private val screenWidth = DeviceController.getWidthMax(requireContext())
+        val selectedHashSet: HashSet<Int> = HashSet()
+        var isSelecting = false
+
+        inner class DirectoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+            val thumbnailImageView: ImageView = itemView.findViewById(R.id.image_thumbnail)
+            val selectImageView: ImageView = itemView.findViewById(R.id.select_thumbnail)
+            val playImageView: ImageView = itemView.findViewById(R.id.play_thumbnail)
+            val timeTextView: TextView = itemView.findViewById(R.id.time_thumbnail)
+            private val descriptionLinearLayout: RelativeLayout = itemView.findViewById(R.id.description_thumbnail)
+
+            init {
+                // set description linear layout gone
+                descriptionLinearLayout.visibility = GONE
+
+                // set item view on click listener
+                itemView.setOnClickListener {
+                    // initialize position
+                    val position = bindingAdapterPosition
+                    if (position == RecyclerView.NO_POSITION)
+                        return@setOnClickListener
+
+                    if (isSelecting) {
+                        // toggle selected
+                        toggleSelected(position)
+
+                        // case undo
+                        if (selectedHashSet.size == 0) {
+                            // set is selecting
+                            isSelecting = false
+
+                            // refresh action bar menu
+                            (context as FragmentActivity).invalidateOptionsMenu()
+                        }
+                    } else {
+                        val intent = Intent(context, ImageActivity::class.java)
+                        intent.putExtra(INTENT_EXTRA_POSITION_DIRECTORY, directoryPosition)
+                        intent.putExtra(INTENT_EXTRA_POSITION_CONTENT, position)
+                        imageResultLauncher.launch(intent)
+                    }
+                }
+                itemView.setOnLongClickListener { view: View ->
+                    // initialize position
+                    val position = bindingAdapterPosition
+                    if (position == RecyclerView.NO_POSITION)
+                        return@setOnLongClickListener false
+
+                    // perform haptic feedback
+                    view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
+
+                    // set is selecting
+                    isSelecting = true
+
+                    // set selected
+                    setSelected(position, true)
+
+                    // refresh action bar menu
+                    (context as FragmentActivity).invalidateOptionsMenu()
+
+                    // start drag
+                    dragSelectTouchListener.startDragSelection(position)
+
+                    true
+                }
+            }
+        }
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DirectoryViewHolder {
+            return DirectoryViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.recycler_thumbnail, parent, false))
+        }
+
+        override fun onBindViewHolder(holder: DirectoryViewHolder, position: Int) {
+            val content = directory.contentArrayList[position]
+
+            // case thumbnail
+            Glide.with(context!!)
+                .load(content.uri)
+                .centerCrop()
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .override(screenWidth / SPAN_COUNT_DIRECTORY)
+                .into(holder.thumbnailImageView)
+
+            // case select
+            holder.selectImageView.visibility = if (selectedHashSet.contains(position)) VISIBLE else GONE
+
+            // case video
+            if (content.isVideo) {
+                holder.playImageView.visibility = VISIBLE
+                holder.timeTextView.visibility = VISIBLE
+
+                val minutes = TimeUnit.MILLISECONDS.toMinutes(content.duration)
+                val seconds = TimeUnit.MILLISECONDS.toSeconds(content.duration) % 60
+                val time = String.format("%02d:%02d", minutes, seconds)
+                holder.timeTextView.text = time
+
+                holder.thumbnailImageView.setColorFilter(ContextCompat.getColor(context!!, R.color.black))
+            } else {
+                holder.playImageView.visibility = GONE
+                holder.timeTextView.visibility = GONE
+                holder.thumbnailImageView.clearColorFilter()
+            }
+
+        }
+
+        override fun getItemCount(): Int {
+            return directory.contentArrayList.size
+        }
+
+        override fun getItemId(position: Int): Long {
+            return directory.contentArrayList[position].uri.hashCode().toLong()
+        }
+
+        fun setSelected(position: Int, isSelected: Boolean) {
+            if (isSelected) selectedHashSet.add(position)
+            else selectedHashSet.remove(position)
+            notifyItemChanged(position, false)
+            activity!!.title = selectedHashSet.size.toString() + "/" + itemCount
+        }
+
+        fun setRangeSelected(startPosition: Int, endPosition: Int, isSelected: Boolean) {
+            for (position in startPosition..endPosition) {
+                if (isSelected) selectedHashSet.add(position)
+                else selectedHashSet.remove(position)
+                notifyItemChanged(position, false)
+            }
+            activity!!.title = selectedHashSet.size.toString() + "/" + itemCount
+        }
+
+        fun setSelectedAll(isSelected: Boolean) {
+            if (isSelected) {
+                for (i in 0 until itemCount) selectedHashSet.add(i)
+            } else
+                selectedHashSet.clear()
+            notifyItemRangeChanged(0, itemCount, false)
+            activity!!.title = selectedHashSet.size.toString() + "/" + itemCount
+        }
+
+        fun toggleSelected(position: Int) {
+            if (selectedHashSet.contains(position)) selectedHashSet.remove(position)
+            else selectedHashSet.add(position)
+            notifyItemChanged(position, false)
+            activity!!.title = selectedHashSet.size.toString() + "/" + itemCount
+        }
+
+        fun share() {
+            // initialize selected array
+            val selectedArray = selectedHashSet.toIntArray()
+
+            // initialize content uri array list
+            val contentUriLinkedList: ArrayList<Uri> = ArrayList()
+            var isContainVideo = false
+            var isContainImage = false
+            for (position in selectedArray) {
+                // initialize content
+                val content = directory.contentArrayList[position]
+
+                // set is contain video, image
+                if (content.isVideo) isContainVideo = true
+                else isContainImage = true
+
+                // add content uri
+                contentUriLinkedList.add(content.uri)
+            }
+
+            // initialize share intent
+            val shareIntent = Intent().apply {
+                action = Intent.ACTION_SEND_MULTIPLE
+                putParcelableArrayListExtra(Intent.EXTRA_STREAM, contentUriLinkedList)
+                type = if (isContainVideo && isContainImage) MIME_TYPE_ALL else if (isContainVideo) MIME_TYPE_VIDEO else MIME_TYPE_IMAGE
+            }
+            startActivity(Intent.createChooser(shareIntent, getString(R.string.action_share)))
+        }
+
+        fun delete() {
+            // initialize selected array
+            val selectedArray = selectedHashSet.toIntArray()
+
+            // initialize content uri array list
+            val contentUriLinkedList: ArrayList<Uri> = ArrayList()
+            for (position in selectedArray) {
+                // add content uri
+                contentUriLinkedList.add(directory.contentArrayList[position].uri)
+            }
+
+            // initialize create delete request pending intent
+            val pendingIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                MediaStore.createDeleteRequest(requireContext().contentResolver, contentUriLinkedList)
+            } else {
+                TODO("VERSION.SDK_INT < R")
+            }
+            val intentSenderRequest = IntentSenderRequest.Builder(pendingIntent.intentSender).build()
+
+            // launch intent sender request
+            deleteResultLauncher.launch(intentSenderRequest)
+        }
+    }
+}

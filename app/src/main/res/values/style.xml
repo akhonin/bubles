@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CustomTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:colorBackground">@color/base_color</item>
+    </style>
+    <style name="CustomDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:windowBackground">#00000000</item>
+    </style>
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
+        <!-- colorAccent -->
+        <item name="colorAccent">@color/blue_color</item>
+
+        <!-- status bar -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+
+        <!-- navigation bar -->
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+
+        <!-- action bar -->
+        <item name="windowActionBar">false</item> <!-- no action bar -->
+        <item name="windowNoTitle">true</item> <!-- no action bar -->
+<!--        <item name="actionOverflowMenuStyle">@style/ActionOverflowMenuStyle</item> &lt;!&ndash; action bar popup menu &ndash;&gt;-->
+        <item name="elevation">0dp</item>
+
+        <!-- text -->
+        <item name="android:textColorPrimary">@android:color/black</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">@dimen/text_size_default</item>
+
+        <!-- window -->
+        <item name="android:windowBackground">@android:color/white</item>
+
+        <!-- snackbar -->
+    </style>
+    <style name="AppTheme.ToolbarTitleTextAppearanceDark">
+        <item name="android:textSize">@dimen/text_size_huge</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+    <style name="AppTheme.ToolbarThemeDark">
+        <item name="android:textColorSecondary">@android:color/white</item>
+    </style>
+</resources>
