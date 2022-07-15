@@ -155,11 +155,15 @@ class ForegroundService : Service() {
             cursor.moveToPosition(i)
             val dataColumnIndex: Int = cursor.getColumnIndex(MediaStore.Images.Media.DATA)
             val uri = Uri.withAppendedPath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, cursor.getString(0).toString())
+            println("cursor.getString(1) ${cursor.getString(1)}")
+            println("cursor.getString(2) ${cursor.getString(2)}")
+            println("cursor.getString(3) ${cursor.getLong(3)}")
             arrPath[i] = MediaItem(
                 cursor.getString(1),
                 cursor.getString(dataColumnIndex),
                 uri.toString(),
-                cursor.getString(0)
+                cursor.getString(0),
+                cursor.getLong(3)
             )
         }
         cursor.close()

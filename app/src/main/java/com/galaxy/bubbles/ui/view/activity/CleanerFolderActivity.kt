@@ -104,7 +104,8 @@ class CleanerFolderActivity: AppCompatActivity() {
                 cursor.getString(1),
                 cursor.getString(dataColumnIndex),
                 uri.toString(),
-                cursor.getString(0)
+                cursor.getString(0),
+                cursor.getLong(3)
             )
         }
         cursor.close()

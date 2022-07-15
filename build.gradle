@@ -3,6 +3,11 @@ buildscript {
     repositories {
         maven { url "https://www.jitpack.io" }
     }
+    dependencies {
+        classpath 'com.google.gms:google-services:4.3.13'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.1'
+        classpath 'gradle.plugin.com.onesignal:onesignal-gradle-plugin:0.14.0'
+    }
 }
 
 

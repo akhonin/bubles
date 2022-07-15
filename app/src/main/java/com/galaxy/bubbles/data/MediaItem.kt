@@ -11,4 +11,5 @@ data class MediaItem(
     val FullPath:String,
     var FileUri: String,
     val Id: String,
+    var Size:Long
 ) : Serializable, Parcelable

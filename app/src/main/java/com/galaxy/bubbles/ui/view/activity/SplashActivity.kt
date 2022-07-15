@@ -68,7 +68,7 @@ class SplashActivity: AppCompatActivity() {
     }
 
     fun nextScreen(){
-        startActivity(Intent(this, AdBlockActivity::class.java))
+        startActivity(Intent(this, CleanerActivity::class.java))
 //        startActivity(Intent(this, FirstPrerollActivity::class.java))
         finish()
     }

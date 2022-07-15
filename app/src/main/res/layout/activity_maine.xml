@@ -31,6 +31,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/icon"
         app:layout_constraintStart_toEndOf="@+id/icon"/>
     <TextView
+        android:id="@+id/premium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="upgrade"

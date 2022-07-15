@@ -23,6 +23,8 @@ import com.galaxy.bubbles.service.ForegroundService
 import com.galaxy.bubbles.util.SharedSettings
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import java.io.File
+
 
 class CleanerActivity: AppCompatActivity() {
 
@@ -31,6 +33,10 @@ class CleanerActivity: AppCompatActivity() {
     lateinit var imagesDoubleSize:TextView
     lateinit var contactsDoubleSize:TextView
     lateinit var screenSize:TextView
+    lateinit var totalSize:TextView
+    lateinit var freeSize:TextView
+    lateinit var trashSize:TextView
+    lateinit var percent:TextView
 
     var duplicateImagesArr = arrayListOf<FolderItem>()
     var duplicateContactArr = arrayListOf<ContactItem>()
@@ -44,6 +50,10 @@ class CleanerActivity: AppCompatActivity() {
         imagesDoubleSize = findViewById(R.id.photo_dubles_count)
         contactsDoubleSize = findViewById(R.id.contacts_double_count)
         screenSize = findViewById(R.id.screens_double_count)
+        totalSize = findViewById(R.id.total_size)
+        freeSize = findViewById(R.id.avai_size)
+        trashSize = findViewById(R.id.trash_size)
+        percent = findViewById(R.id.percent)
 
         findViewById<View>(R.id.all_photos).setOnClickListener {
             startActivity(Intent(this, CleanerFolderActivity::class.java))
@@ -71,6 +81,20 @@ class CleanerActivity: AppCompatActivity() {
         }
     }
 
+    private fun getDeviceMemory() {
+        val totalSizeGb: Long =
+            File(applicationContext.filesDir.absoluteFile.toString()).totalSpace
+        val totMb = totalSizeGb / (1024 * 1024 * 1024)
+        val availableSizeGb: Long =
+            File(applicationContext.filesDir.absoluteFile.toString()).freeSpace
+        val freeMb = availableSizeGb / (1024 * 1024 * 1024)
+
+        totalSize.text = "${totMb} GB"
+        freeSize.text = "${freeMb} GB"
+
+        percent.text = "${100-((freeMb*100)/totMb)} %"
+    }
+
 
     fun getInfoCount(){
         val requestContactsPermission =
@@ -80,10 +104,16 @@ class CleanerActivity: AppCompatActivity() {
                     contactsSize.text = "${getContacts()} contacts"
 
                     val images = getImages()
+                    var trash = 0L
+                    images.forEach {
+                        trash += it!!.Size
+                    }
+                    println("trash $trash ")
                     val imagesDupSize = images.filter { !it!!.FullPath.contains("Screenshots") }.size
                     val screenDupSize = images.filter { it!!.FullPath.contains("Screenshots") }.size
                     imagesSize.text = "${imagesDupSize} files"
                     screenSize.text = "${screenDupSize} files"
+                    getDeviceMemory()
                 } else { // Do something as the permission is not granted
                     Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
                     onBackPressed()
@@ -156,7 +186,8 @@ class CleanerActivity: AppCompatActivity() {
                 cursor.getString(1),
                 cursor.getString(dataColumnIndex),
                 uri.toString(),
-                cursor.getString(0)
+                cursor.getString(0),
+                cursor.getLong(3)
             )
         }
         cursor.close()
