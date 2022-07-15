@@ -40,11 +40,11 @@ class App: MultiDexApplication() {
         OneSignal.unsubscribeWhenNotificationsAreDisabled(true)
         OneSignal.initWithContext(this)
 
-        Purchases.debugLogsEnabled = true
+//        Purchases.debugLogsEnabled = true
 
-        val conf = PurchasesConfiguration.Builder(this, revenueApiKey)
-        conf.appUserID(uniqueID)
-        Purchases.configure(conf.build())
+//        val conf = PurchasesConfiguration.Builder(this, revenueApiKey)
+//        conf.appUserID(uniqueID)
+//        Purchases.configure(conf.build())
 
 
 

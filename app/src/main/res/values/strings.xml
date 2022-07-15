@@ -32,6 +32,10 @@
     <string name="action_information">Information</string>
     <string name="action_rotate">Rotate</string>
 
+
+    <string name="facebook_app_id" translatable="false">709546473605225</string>
+    <string name="facebook_client_token" translatable="false">311faa5449b4c61c063d0dfaf478c8d3</string>
+
     <!-- others -->
     <string name="choose">Choose</string>
     <string name="preparing">Preparing</string>

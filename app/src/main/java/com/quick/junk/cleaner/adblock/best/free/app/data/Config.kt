@@ -75,5 +75,12 @@ class Config {
 
         const val IMAGES_DIPLICATES_KEY = "IMAGES_DIPLICATES_KEY"
         const val CONTACTS_DIPLICATES_KEY = "CONTACTS_DIPLICATES_KEY"
+        const val IS_FUNNEL = "is_funnel"
+        const val IS_FIRST_RUN_WITH_PAYWALL_KEY = "FIRST_WITH_PAYWALL_KEY"
+        const val IS_FIRST_RUN_WITH_SCAN_KEY = "FIRST_WITH_SCAN_KEY"
+        const val IS_FIRST_RUN_WITH_ALERT_KEY = "FIRST_WITH_ALERT_KEY"
+        const val IS_FIRST_RUN_KEY = "FIRST_KEY"
+        const val WHITE_ENABLED = "WHITE_ENABLED"
+        const val IS_NO_VIP_PREF_KEY = "NO_VIP_PREF"
     }
 }
