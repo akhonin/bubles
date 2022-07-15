@@ -14,5 +14,5 @@ dependencyResolutionManagement {
         maven { url "https://www.jitpack.io" }
     }
 }
-rootProject.name = "Bubbles"
+rootProject.name = "Quick Junk Cleaner"
 include ':app'

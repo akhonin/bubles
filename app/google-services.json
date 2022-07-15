@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "400764936955",
+    "project_id": "quick-junk-cleaner",
+    "storage_bucket": "quick-junk-cleaner.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:400764936955:android:874709edd249ed515b465e",
+        "android_client_info": {
+          "package_name": "com.quick.junk.cleaner.adblock.best.free.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "400764936955-t8ac1octdvd34kri1286r4u41vi40t7s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJzUoMz8AbYteoFOrthlgtgZGQtZLaikY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "400764936955-t8ac1octdvd34kri1286r4u41vi40t7s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

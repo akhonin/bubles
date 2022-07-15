@@ -1,4 +1,4 @@
-package com.galaxy.bubbles
+package com.quick.junk.cleaner.adblock.best.free.app
 
 import org.junit.Test
 
