@@ -86,8 +86,14 @@
         <entry key="..\:/projects/Bubbles/app/src/main/res/layout/layout_list.xml" value="0.2552372808892689" />
         <entry key="..\:/projects/Bubbles/app/src/main/res/layout/layout_media_item.xml" value="0.2543822146216332" />
         <entry key="..\:/projects/Bubbles/app/src/main/res/layout/recycler_thumbnail.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/activity_adblock.xml" value="0.21822916666666667" />
+        <entry key="app/src/main/res/layout/activity_cleaner.xml" value="0.21822916666666667" />
         <entry key="app/src/main/res/layout/activity_image.xml" value="0.12740487387772553" />
+        <entry key="app/src/main/res/layout/activity_maine.xml" value="0.4036458333333333" />
         <entry key="app/src/main/res/layout/activity_photos.xml" value="0.19628286491387126" />
+        <entry key="app/src/main/res/layout/activity_premium.xml" value="0.4036458333333333" />
+        <entry key="app/src/main/res/layout/activity_preroll_first.xml" value="0.21822916666666667" />
+        <entry key="app/src/main/res/layout/activity_preroll_second.xml" value="0.21822916666666667" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.19628286491387126" />
         <entry key="app/src/main/res/layout/fragment_dialog_progress.xml" value="0.12740487387772553" />
         <entry key="app/src/main/res/layout/fragment_image.xml" value="0.12740487387772553" />
@@ -96,6 +102,7 @@
         <entry key="app/src/main/res/layout/layout_appbar_edit.xml" value="0.12740487387772553" />
         <entry key="app/src/main/res/layout/layout_list.xml" value="0.12740487387772553" />
         <entry key="app/src/main/res/layout/recycler_thumbnail.xml" value="0.25" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.225" />
       </map>
     </option>
   </component>

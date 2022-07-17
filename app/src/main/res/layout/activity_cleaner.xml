@@ -50,11 +50,87 @@
         android:layout_height="200dp"
         android:orientation="vertical"
         android:background="@drawable/bubble_cleaner_bg"
+        android:gravity="center|top"
+        android:paddingTop="18dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/dublicates_screenshot">
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your Storage"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            />
+        <TextView
+            android:id="@+id/percent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="76%"
+            android:textColor="@color/white"
+            android:textSize="44sp"
+            />
+        <LinearLayout
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:gravity="right"
+                android:text="Total memory:"
+                android:layout_marginEnd="5dp"/>
+            <TextView
+                android:id="@+id/total_size"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:text="128gb"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:gravity="right"
+                android:text="Available:"
+                android:layout_marginEnd="5dp"/>
+            <TextView
+                android:id="@+id/avai_size"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:text="24gb"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:gravity="right"
+                android:text="Trash size:"
+                android:layout_marginEnd="5dp"/>
+            <TextView
+                android:id="@+id/trash_size"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:text="470 Mb"/>
+        </LinearLayout>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/dublicates_screenshot"
