@@ -11,6 +11,7 @@
         <entry key="..\:/projects/Bubbles/app/src/main/res/drawable-v24/bubble_cleaner_bg.xml" value="0.4145" />
         <entry key="..\:/projects/Bubbles/app/src/main/res/drawable-v24/bubble_sub_bg.xml" value="0.375" />
         <entry key="..\:/projects/Bubbles/app/src/main/res/drawable-v24/button_bg_full.xml" value="0.375" />
+        <entry key="..\:/projects/Bubbles/app/src/main/res/drawable-v24/dot.xml" value="0.223" />
         <entry key="..\:/projects/Bubbles/app/src/main/res/drawable-v24/drawable_progress.xml" value="0.294" />
         <entry key="..\:/projects/Bubbles/app/src/main/res/drawable-v24/ic_cleaner.xml" value="0.314" />
         <entry key="..\:/projects/Bubbles/app/src/main/res/drawable-v24/ic_close.xml" value="0.375" />
@@ -18,11 +19,13 @@
         <entry key="..\:/projects/Bubbles/app/src/main/res/drawable-v24/ic_photos.xml" value="0.4145" />
         <entry key="..\:/projects/Bubbles/app/src/main/res/drawable-v24/ic_screenshots.xml" value="0.4145" />
         <entry key="..\:/projects/Bubbles/app/src/main/res/drawable-v24/ic_speedometr.xml" value="0.314" />
+        <entry key="..\:/projects/Bubbles/app/src/main/res/drawable-v24/ic_trafic.xml" value="0.219" />
         <entry key="..\:/projects/Bubbles/app/src/main/res/drawable-v24/icon_select.xml" value="0.22" />
         <entry key="..\:/projects/Bubbles/app/src/main/res/drawable-v24/speed_shower.xml" value="0.314" />
         <entry key="..\:/projects/Bubbles/app/src/main/res/drawable-v24/speed_test_bg.xml" value="0.314" />
         <entry key="..\:/projects/Bubbles/app/src/main/res/drawable-v24/top_bg.xml" value="0.375" />
         <entry key="..\:/projects/Bubbles/app/src/main/res/drawable/bf_header.xml" value="0.375" />
+        <entry key="..\:/projects/Bubbles/app/src/main/res/drawable/bg_contact.xml" value="0.223" />
         <entry key="..\:/projects/Bubbles/app/src/main/res/drawable/bg_header.xml" value="0.375" />
         <entry key="..\:/projects/Bubbles/app/src/main/res/drawable/btn_adblock.xml" value="0.294" />
         <entry key="..\:/projects/Bubbles/app/src/main/res/drawable/btn_cleaner.xml" value="0.4145" />
@@ -32,8 +35,11 @@
         <entry key="..\:/projects/Bubbles/app/src/main/res/drawable/bubble_sub_bg.xml" value="0.1835" />
         <entry key="..\:/projects/Bubbles/app/src/main/res/drawable/button_bg.xml" value="0.1835" />
         <entry key="..\:/projects/Bubbles/app/src/main/res/drawable/button_bg_full.xml" value="0.1835" />
+        <entry key="..\:/projects/Bubbles/app/src/main/res/drawable/dot.xml" value="0.223" />
+        <entry key="..\:/projects/Bubbles/app/src/main/res/drawable/drawable_progress.xml" value="0.219" />
         <entry key="..\:/projects/Bubbles/app/src/main/res/drawable/drawable_round.xml" value="0.294" />
         <entry key="..\:/projects/Bubbles/app/src/main/res/drawable/drawable_round_ripple.xml" value="0.294" />
+        <entry key="..\:/projects/Bubbles/app/src/main/res/drawable/ic_ad.xml" value="0.219" />
         <entry key="..\:/projects/Bubbles/app/src/main/res/drawable/ic_adblock.xml" value="0.314" />
         <entry key="..\:/projects/Bubbles/app/src/main/res/drawable/ic_check.xml" value="0.375" />
         <entry key="..\:/projects/Bubbles/app/src/main/res/drawable/ic_cleaner.xml" value="0.314" />
@@ -48,11 +54,15 @@
         <entry key="..\:/projects/Bubbles/app/src/main/res/drawable/ic_speed.xml" value="0.314" />
         <entry key="..\:/projects/Bubbles/app/src/main/res/drawable/ic_speed_btn.xml" value="0.314" />
         <entry key="..\:/projects/Bubbles/app/src/main/res/drawable/ic_speedometr.xml" value="0.314" />
+        <entry key="..\:/projects/Bubbles/app/src/main/res/drawable/ic_threads.xml" value="0.219" />
+        <entry key="..\:/projects/Bubbles/app/src/main/res/drawable/ic_trafic.xml" value="0.219" />
         <entry key="..\:/projects/Bubbles/app/src/main/res/drawable/icon_play.xml" value="0.294" />
+        <entry key="..\:/projects/Bubbles/app/src/main/res/drawable/icon_select.xml" value="0.219" />
+        <entry key="..\:/projects/Bubbles/app/src/main/res/drawable/layout_contact_group.xml" value="0.219" />
         <entry key="..\:/projects/Bubbles/app/src/main/res/drawable/speed_shower.xml" value="0.4145" />
         <entry key="..\:/projects/Bubbles/app/src/main/res/drawable/speed_test_bg.xml" value="0.4145" />
         <entry key="..\:/projects/Bubbles/app/src/main/res/layout/activitt_photos.xml" value="0.2543822146216332" />
-        <entry key="..\:/projects/Bubbles/app/src/main/res/layout/activity_adblock.xml" value="0.3098958333333333" />
+        <entry key="..\:/projects/Bubbles/app/src/main/res/layout/activity_adblock.xml" value="0.3337587747287811" />
         <entry key="..\:/projects/Bubbles/app/src/main/res/layout/activity_cleaner.xml" value="0.33" />
         <entry key="..\:/projects/Bubbles/app/src/main/res/layout/activity_cleaner_full_screen.xml" value="0.4125113327289211" />
         <entry key="..\:/projects/Bubbles/app/src/main/res/layout/activity_contact_list.xml" value="0.2556648140230868" />
@@ -60,6 +70,8 @@
         <entry key="..\:/projects/Bubbles/app/src/main/res/layout/activity_first_sub.xml" value="0.5489583333333333" />
         <entry key="..\:/projects/Bubbles/app/src/main/res/layout/activity_folders.xml" value="0.25651988029072254" />
         <entry key="..\:/projects/Bubbles/app/src/main/res/layout/activity_gallery.xml" value="0.2552372808892689" />
+        <entry key="..\:/projects/Bubbles/app/src/main/res/layout/activity_grey_first.xml" value="0.22" />
+        <entry key="..\:/projects/Bubbles/app/src/main/res/layout/activity_grey_second.xml" value="0.4310970081595648" />
         <entry key="..\:/projects/Bubbles/app/src/main/res/layout/activity_image.xml" value="0.67" />
         <entry key="..\:/projects/Bubbles/app/src/main/res/layout/activity_maine.xml" value="0.33" />
         <entry key="..\:/projects/Bubbles/app/src/main/res/layout/activity_photos.xml" value="0.22" />
@@ -68,6 +80,8 @@
         <entry key="..\:/projects/Bubbles/app/src/main/res/layout/activity_preroll_four.xml" value="0.22" />
         <entry key="..\:/projects/Bubbles/app/src/main/res/layout/activity_preroll_second.xml" value="0.3109375" />
         <entry key="..\:/projects/Bubbles/app/src/main/res/layout/activity_preroll_third.xml" value="0.3109375" />
+        <entry key="..\:/projects/Bubbles/app/src/main/res/layout/activity_rules.xml" value="0.42339075249320035" />
+        <entry key="..\:/projects/Bubbles/app/src/main/res/layout/activity_ruls.xml" value="0.42339075249320035" />
         <entry key="..\:/projects/Bubbles/app/src/main/res/layout/activity_speed_test.xml" value="0.33" />
         <entry key="..\:/projects/Bubbles/app/src/main/res/layout/activity_splash.xml" value="0.4642301710730949" />
         <entry key="..\:/projects/Bubbles/app/src/main/res/layout/activity_video.xml" value="0.2552372808892689" />
@@ -79,6 +93,7 @@
         <entry key="..\:/projects/Bubbles/app/src/main/res/layout/fragment_preroll_second.xml" value="0.55" />
         <entry key="..\:/projects/Bubbles/app/src/main/res/layout/fragment_preroll_third.xml" value="0.55" />
         <entry key="..\:/projects/Bubbles/app/src/main/res/layout/item_gallery_image.xml" value="0.2543822146216332" />
+        <entry key="..\:/projects/Bubbles/app/src/main/res/layout/item_rules.xml" value="0.42339075249320035" />
         <entry key="..\:/projects/Bubbles/app/src/main/res/layout/layout_appbar_edit.xml" value="0.2552372808892689" />
         <entry key="..\:/projects/Bubbles/app/src/main/res/layout/layout_contact.xml" value="0.25651988029072254" />
         <entry key="..\:/projects/Bubbles/app/src/main/res/layout/layout_contact_group.xml" value="0.2556648140230868" />

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Bubbles</string>
+    <string name="app_name">Quick Junk Cleaner</string>
 
     <string name="dialog_cancel">Cancel</string>
     <string name="dialog_confirm">Confirm</string>

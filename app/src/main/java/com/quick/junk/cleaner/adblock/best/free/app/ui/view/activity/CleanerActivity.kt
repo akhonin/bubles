@@ -59,6 +59,12 @@ class CleanerActivity: AppCompatActivity() {
             startActivity(Intent(this, CleanerFolderActivity::class.java))
         }
 
+        findViewById<View>(R.id.all_videos).setOnClickListener {
+            val intent = Intent(this, CleanerFolderActivity::class.java)
+            intent.putExtra("video", true)
+            startActivity(intent)
+        }
+
         findViewById<View>(R.id.dublicates_photo).setOnClickListener {
             val intent = Intent(this, CleanerFolderActivity::class.java)
             intent.putParcelableArrayListExtra("items", duplicateImagesArr)
@@ -190,7 +196,9 @@ class CleanerActivity: AppCompatActivity() {
                 cursor.getString(dataColumnIndex),
                 uri.toString(),
                 cursor.getString(0),
-                cursor.getLong(3)
+                cursor.getLong(3),
+                false,
+                0L
             )
         }
         cursor.close()
@@ -225,7 +233,6 @@ class CleanerActivity: AppCompatActivity() {
                 e.printStackTrace()
             }
         }
-        println("getDuplesInfo ${imagesString}")
     }
 
     companion object {

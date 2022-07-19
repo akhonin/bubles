@@ -9,5 +9,6 @@ data class FolderItem(
     val FolderName:String? = null,
     var FolderCount:Int = 0,
     val FolderPhoto:String? = null,
+    var IsVideo:Boolean = false,
     val FolderItem:ArrayList<MediaItem> = ArrayList()
 ) : Serializable, Parcelable

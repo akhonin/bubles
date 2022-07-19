@@ -30,9 +30,6 @@ import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.quick.junk.cleaner.adblock.best.free.app.R
-import com.quick.junk.cleaner.adblock.best.free.app.controller.ContentController
-import com.quick.junk.cleaner.adblock.best.free.app.data.Directory
-import com.quick.junk.cleaner.adblock.best.free.app.data.FolderItem
 import com.quick.junk.cleaner.adblock.best.free.app.data.MediaItem
 import com.quick.junk.cleaner.adblock.best.free.app.ui.view.fragment.ImageFragment
 import java.io.File

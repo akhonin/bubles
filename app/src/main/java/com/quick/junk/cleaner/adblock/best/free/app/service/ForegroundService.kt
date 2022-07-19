@@ -98,7 +98,7 @@ class ForegroundService : Service() {
                         if(isEqual(first.FullPath,second.FullPath)) {
                             if (grouping[file.parentFile.name] == null) {
                                 grouping[file.parentFile.name] =
-                                    FolderItem(file.parentFile.name, 1, file.path,
+                                    FolderItem(file.parentFile.name, 1, file.path,false,
                                         arrayListOf(first))
                             } else {
                                 grouping[file.parentFile.name]!!.FolderCount =
@@ -164,7 +164,9 @@ class ForegroundService : Service() {
                 cursor.getString(dataColumnIndex),
                 uri.toString(),
                 cursor.getString(0),
-                cursor.getLong(3)
+                cursor.getLong(3),
+                false,
+                0L
             )
         }
         cursor.close()

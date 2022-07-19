@@ -11,4 +11,3 @@
         android:scaleType="centerCrop"
         android:src="@mipmap/ic_launcher" />
 </RelativeLayout>
-

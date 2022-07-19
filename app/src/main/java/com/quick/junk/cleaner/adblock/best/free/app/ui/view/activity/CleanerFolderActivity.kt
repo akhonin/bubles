@@ -21,6 +21,7 @@ class CleanerFolderActivity: AppCompatActivity() {
     var courseAdapter:MediaFolderAdapter? = null
 
     var intentData:ArrayList<FolderItem>? = null
+    var isVideo = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +37,20 @@ class CleanerFolderActivity: AppCompatActivity() {
             startActivity(intent)
         }
 
-        intentData = intent.getSerializableExtra("items") as ArrayList<FolderItem>
+        isVideo = intent.getBooleanExtra("video",false)
+        println("CleanerFolderActivity videos  isVideo ${isVideo}")
+        if(!isVideo) {
+            try {
+                intentData = intent.getSerializableExtra("items") as ArrayList<FolderItem>
+            }catch (e:Exception){
+                e.printStackTrace()
+            }
+        }else{
+            val videos = getVideos()
+            videos.forEach {
+                println("CleanerFolderActivity videos ${it}")
+            }
+        }
 
         println("CleanerFolderActivity ${intentData}")
 
@@ -48,6 +62,43 @@ class CleanerFolderActivity: AppCompatActivity() {
         }
     }
 
+    fun getVideos():ArrayList<MediaItem> {
+        val videoItemHashSet: ArrayList<MediaItem> = ArrayList()
+        val projection = arrayOf(
+            MediaStore.Video.VideoColumns.DATA,
+            MediaStore.Video.Media._ID,
+            MediaStore.Video.Media.DISPLAY_NAME,
+            MediaStore.Video.Media.SIZE,
+            MediaStore.Video.Media.WIDTH,
+            MediaStore.Video.Media.HEIGHT,
+            MediaStore.Video.Media.DATE_MODIFIED,
+            MediaStore.Video.Media.RELATIVE_PATH,
+            MediaStore.Video.Media.DURATION
+        )
+
+        val cursor: Cursor? = contentResolver
+            .query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, projection, null, null, null)
+        try {
+            cursor!!.moveToFirst()
+            do {
+                videoItemHashSet.add(
+                    MediaItem(
+                        cursor.getString(2),
+                        cursor.getString(0),
+                        Uri.withAppendedPath(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, cursor.getString(0).toString()).toString(),
+                        cursor.getString(1),
+                        cursor.getLong(3),
+                        true,
+                        cursor.getLong(8)
+                ))
+            } while (cursor.moveToNext())
+            cursor.close()
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+        }
+        return ArrayList(videoItemHashSet)
+    }
+
     override fun onResume() {
         super.onResume()
         showFolder()
@@ -56,13 +107,20 @@ class CleanerFolderActivity: AppCompatActivity() {
     private fun showFolder(){
         courseAdapter!!.courseList.clear()
         if(intentData.isNullOrEmpty()) {
-            val photoList = getImages()
+            var photoList = ArrayList<MediaItem>()
+            photoList.clear()
+            photoList = if(!isVideo) {
+                getImages()
+            }else{
+                getVideos()
+            }
             val grouping = HashMap<String, FolderItem>()
 
             photoList.forEach {
                 val file = File(it!!.FullPath)
                 if (grouping[file.parentFile.name] == null) {
                     grouping[file.parentFile.name] = FolderItem(file.parentFile.name, 1, file.path,
+                        it.IsVideo,
                         arrayListOf(it))
                 } else {
                     grouping[file.parentFile.name]!!.FolderCount =
@@ -77,7 +135,7 @@ class CleanerFolderActivity: AppCompatActivity() {
     }
 
 
-    private fun getImages(): Array<MediaItem?> {
+    private fun getImages(): ArrayList<MediaItem> {
         val columns = arrayOf(
             MediaStore.Images.Media._ID,
             MediaStore.Images.Media.DATA,
@@ -94,19 +152,21 @@ class CleanerFolderActivity: AppCompatActivity() {
             null, orderBy)
         val count: Int = cursor!!.count
 
-        val arrPath = arrayOfNulls<MediaItem>(count)
+        val arrPath = ArrayList<MediaItem>()
 
         for (i in 0 until count) {
             cursor.moveToPosition(i)
             val dataColumnIndex: Int = cursor.getColumnIndex(MediaStore.Images.Media.DATA)
             val uri = Uri.withAppendedPath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, cursor.getString(0).toString())
-            arrPath[i] = MediaItem(
+            arrPath.add(MediaItem(
                 cursor.getString(1),
                 cursor.getString(dataColumnIndex),
                 uri.toString(),
                 cursor.getString(0),
-                cursor.getLong(3)
-            )
+                cursor.getLong(3),
+                false,
+                0L
+            ))
         }
         cursor.close()
         return arrPath

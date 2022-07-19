@@ -43,6 +43,29 @@
         app:layout_constraintEnd_toEndOf="parent"
         />
 
+    <TextView
+        android:id="@+id/status_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="status"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/speed_text"
+        app:layout_constraintBottom_toTopOf="@+id/adblock_btn"
+        />
+    <TextView
+        android:id="@+id/status_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="INActive"
+        android:textAllCaps="true"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/status_name"
+
+        />
     <LinearLayout
         android:id="@+id/adblock_btn"
         android:layout_width="200dp"
@@ -50,14 +73,150 @@
         android:background="@drawable/bubble_maine_bg"
         android:orientation="vertical"
         android:gravity="center"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/status_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/rules_btn"
+        >
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_on"/>
+        <TextView
+            android:id="@+id/btn_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ENABLE"
+            android:textStyle="bold"
+            android:textSize="22sp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/base_color"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/rules_btn"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:background="@drawable/bubble_maine_bg"
+        android:orientation="vertical"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/adblock_btn"
+        app:layout_constraintBottom_toTopOf="@+id/threats_item"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         >
         <ImageView
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@drawable/ic_on"/>
+            android:src="@drawable/ic_zamok"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Rules"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/base_color"/>
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/trafic_item"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:orientation="vertical"
+        android:background="@drawable/bubble_cleaner_bg"
+        android:gravity="center|top"
+        android:paddingTop="18dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/blocked_item"
+        app:layout_constraintTop_toBottomOf="@+id/rules_btn"
+       app:layout_constraintBottom_toBottomOf="parent">
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/ic_trafic"/>
+        <TextView
+            android:id="@+id/trafic_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Traffics Saved"
+            android:textSize="12dp"
+            android:textColor="#C9C5C5"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/blocked_item"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:orientation="vertical"
+        android:background="@drawable/bubble_cleaner_bg"
+        android:gravity="center|top"
+        android:paddingTop="18dp"
+        app:layout_constraintStart_toEndOf="@+id/trafic_item"
+        app:layout_constraintTop_toBottomOf="@+id/rules_btn"
+        app:layout_constraintEnd_toStartOf="@+id/threats_item"
+       app:layout_constraintBottom_toBottomOf="parent">
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/ic_ad"/>
+        <TextView
+            android:id="@+id/blocked_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Blocked Ads"
+            android:textSize="12dp"
+            android:textColor="#C9C5C5"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/threats_item"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:orientation="vertical"
+        android:background="@drawable/bubble_cleaner_bg"
+        android:gravity="center|top"
+        android:paddingTop="18dp"
+        app:layout_constraintStart_toEndOf="@+id/blocked_item"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rules_btn"
+        app:layout_constraintBottom_toBottomOf="parent">
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/ic_threads"/>
+        <TextView
+            android:id="@+id/threats_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Blocked Threats"
+            android:textSize="12dp"
+            android:textColor="#C9C5C5"
+            />
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

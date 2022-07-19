@@ -1,7 +1,10 @@
 package com.quick.junk.cleaner.adblock.best.free.app.ui.view.adapter
 
+import android.R.attr.path
 import android.content.Context
 import android.graphics.BitmapFactory
+import android.media.ThumbnailUtils
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +13,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.quick.junk.cleaner.adblock.best.free.app.R
 import com.quick.junk.cleaner.adblock.best.free.app.data.FolderItem
+
 
 class MediaFolderAdapter(
     private val context: Context
@@ -50,7 +54,16 @@ class MediaFolderAdapter(
         name = convertView.findViewById(R.id.name)
         count = convertView.findViewById(R.id.count)
 
-        image.setImageBitmap(BitmapFactory.decodeFile(courseList[position].FolderPhoto))
+        if(courseList[position].IsVideo){
+            val thumb = ThumbnailUtils.createVideoThumbnail(
+                courseList[position].FolderItem.first().FullPath,
+                MediaStore.Images.Thumbnails.MINI_KIND
+            )
+            image.setImageBitmap(thumb)
+        }else {
+            image.setImageBitmap(BitmapFactory.decodeFile(courseList[position].FolderPhoto))
+        }
+
         name.text = courseList[position].FolderName
         count.text = courseList[position].FolderCount.toString()
 

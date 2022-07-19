@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:padding="10dp"
+    android:layout_margin="10dp"
+    >
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:layout_alignParentStart="true"
+        android:layout_marginEnd="5dp"
+        android:text="server"
+        />
+
+
+    <RadioButton
+        android:id="@+id/selected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+    />
+
+    <TextView
+        android:id="@+id/rules_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/name"
+        android:layout_alignParentStart="true"
+        android:layout_marginEnd="5dp"
+        android:gravity="center"
+        android:text="Ping:"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/rules_descr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rules_count"
+        android:layout_alignParentStart="true"
+        android:layout_marginEnd="5dp"
+        android:gravity="center"
+        android:text="Ping:"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
+</RelativeLayout>

@@ -279,13 +279,17 @@ class TcpVpnService(
                 Log.d(TAG, "request payload: ${tcpPacket.payload.rawData.size} bytes\n${tcpPacket.payload.rawData}\n${String(tcpPacket.payload.rawData)}")
                 if (!conn!!.waitingForNetworkData) {
                     selector.wakeup()
-                    conn!!.selectionKey!!.interestOps(SelectionKey.OP_READ);
-                    conn!!.waitingForNetworkData = true
+                    try {
+                        conn!!.selectionKey!!.interestOps(SelectionKey.OP_READ);
+                        conn!!.waitingForNetworkData = true
+                    }catch (e:Exception){
+                        e.printStackTrace()
+                    }
                 }
                 // Forward to remote server
-                conn!!.channel!!.write(ByteBuffer.wrap(tcpPacket.payload.rawData))
-                conn!!.tcpHeader.seqNum = tcpPacket.header.acknowledgmentNumber
-                conn!!.tcpHeader.ackNum = tcpPacket.header.sequenceNumber.plus(tcpPacket.payload.rawData.size)
+                conn.channel!!.write(ByteBuffer.wrap(tcpPacket.payload.rawData))
+                conn.tcpHeader.seqNum = tcpPacket.header.acknowledgmentNumber
+                conn.tcpHeader.ackNum = tcpPacket.header.sequenceNumber.plus(tcpPacket.payload.rawData.size)
                 tcpBuilder.window(conn!!.tcpHeader.windowSize)
                         .ack(true)
                         .sequenceNumber(conn!!.tcpHeader.seqNum)

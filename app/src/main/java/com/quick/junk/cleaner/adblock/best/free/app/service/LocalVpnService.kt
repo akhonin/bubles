@@ -83,18 +83,23 @@ class LocalVpnService : VpnService() {
                     delay(100)
                     continue@loop
                 }
-                val packet = IpV4Packet.newPacket(buffer.array(), 0, readBytes)
-                Log.d(TAG, "REQUEST\n${packet}")
-                when (packet.header.protocol) {
-                    IpNumber.UDP -> {
-                        udpVpnService!!.outputCh.send(packet)
+                println("buffer ${buffer}")
+                try {
+                    val packet = IpV4Packet.newPacket(buffer.array(), 0, readBytes)
+                    Log.d(TAG, "REQUEST\n${packet}")
+                    when (packet.header.protocol) {
+                        IpNumber.UDP -> {
+                            udpVpnService!!.outputCh.send(packet)
+                        }
+                        IpNumber.TCP -> {
+                            tcpVpnService!!.outputCh.send(packet)
+                        }
+                        else -> {
+                            Log.w(TAG, "Unknown packet type");
+                        }
                     }
-                    IpNumber.TCP -> {
-                        tcpVpnService!!.outputCh.send(packet)
-                    }
-                    else -> {
-                        Log.w(TAG, "Unknown packet type");
-                    }
+                }catch (e:Exception){
+                    e.printStackTrace()
                 }
             }
         }
