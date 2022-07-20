@@ -20,6 +20,16 @@
             android:padding="4dp"
             android:src="@mipmap/ic_launcher" />
 
+       <ImageView
+           android:id="@+id/play"
+           android:layout_width="70dp"
+           android:layout_height="70dp"
+           android:layout_gravity="center"
+           android:layout_margin="5dp"
+           android:layout_centerInParent="true"
+           android:src="@drawable/ic_play"
+           android:visibility="gone"/>
+
         <RelativeLayout
             android:id="@+id/description_thumbnail"
             android:layout_width="match_parent"

@@ -67,6 +67,11 @@
             android:screenOrientation="portrait"
             android:label="@string/app_name"/>
         <activity
+            android:name=".ui.view.activity.VideoActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name"/>
+        <activity
             android:name=".ui.view.activity.FirstSubActivity"
             android:exported="true"
             android:screenOrientation="portrait"

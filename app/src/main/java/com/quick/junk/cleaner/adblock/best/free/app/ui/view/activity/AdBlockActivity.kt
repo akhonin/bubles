@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -30,6 +31,7 @@ class AdBlockActivity: AppCompatActivity() {
     lateinit var traficText:TextView
     lateinit var blockedText:TextView
     lateinit var threadsText:TextView
+    lateinit var btnIcon:ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +42,7 @@ class AdBlockActivity: AppCompatActivity() {
         traficText = findViewById(R.id.trafic_text)
         blockedText = findViewById(R.id.blocked_text)
         threadsText = findViewById(R.id.threats_text)
+        btnIcon = findViewById(R.id.btn_icon)
 
         btnOn = findViewById(R.id.adblock_btn)
         initUi()
@@ -50,6 +53,9 @@ class AdBlockActivity: AppCompatActivity() {
             initUi()
         }
 
+        findViewById<View>(R.id.icon).setOnClickListener {
+            onBackPressed()
+        }
         findViewById<View>(R.id.rules_btn).setOnClickListener {
             startActivity( Intent(this, RulesListActivity::class.java))
         }
@@ -61,11 +67,13 @@ class AdBlockActivity: AppCompatActivity() {
         isEnabled = SharedSettings.getBoolean(IS_DISABLED_ADBLOCK)
         if(isEnabled){
             status.text = "Active"
-            btnText.text = "Disabled"
+            btnText.text = "Disable"
+            btnIcon.setImageResource(R.drawable.btn_stop)
             showInfo()
         }else{
             status.text = "INActive"
-            btnText.text = "Enabled"
+            btnText.text = "Enable"
+            btnIcon.setImageResource(R.drawable.ic_on)
         }
     }
 

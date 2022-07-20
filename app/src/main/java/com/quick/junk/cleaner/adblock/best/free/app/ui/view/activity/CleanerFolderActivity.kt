@@ -38,7 +38,6 @@ class CleanerFolderActivity: AppCompatActivity() {
         }
 
         isVideo = intent.getBooleanExtra("video",false)
-        println("CleanerFolderActivity videos  isVideo ${isVideo}")
         if(!isVideo) {
             try {
                 intentData = intent.getSerializableExtra("items") as ArrayList<FolderItem>
@@ -101,7 +100,9 @@ class CleanerFolderActivity: AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        showFolder()
+        if(intentData.isNullOrEmpty()) {
+            showFolder()
+        }
     }
 
     private fun showFolder(){

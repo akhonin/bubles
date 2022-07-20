@@ -31,6 +31,9 @@ class ContactListActivity: AppCompatActivity()  {
 
         groups = contacts.groupBy { it.Number!! }
 
+        findViewById<View>(R.id.icon).setOnClickListener {
+            onBackPressed()
+        }
 
         val listAdapter = ContactGroupRecyclerAdapter()
         contactsList.adapter = listAdapter

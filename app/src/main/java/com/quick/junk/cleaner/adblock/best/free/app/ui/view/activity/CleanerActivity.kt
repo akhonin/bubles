@@ -33,6 +33,7 @@ class CleanerActivity: AppCompatActivity() {
     lateinit var imagesDoubleSize:TextView
     lateinit var contactsDoubleSize:TextView
     lateinit var screenSize:TextView
+    lateinit var screenDupSizeText:TextView
     lateinit var totalSize:TextView
     lateinit var freeSize:TextView
     lateinit var trashSize:TextView
@@ -40,6 +41,7 @@ class CleanerActivity: AppCompatActivity() {
 
     var duplicateImagesArr = arrayListOf<FolderItem>()
     var duplicateContactArr = arrayListOf<ContactItem>()
+    var duplicateScreens = arrayListOf<MediaItem?>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,12 +51,16 @@ class CleanerActivity: AppCompatActivity() {
         imagesSize = findViewById(R.id.files_count)
         imagesDoubleSize = findViewById(R.id.photo_dubles_count)
         contactsDoubleSize = findViewById(R.id.contacts_double_count)
-        screenSize = findViewById(R.id.screens_double_count)
+        screenSize = findViewById(R.id.screens_count)
+        screenDupSizeText = findViewById(R.id.screens_double_count)
         totalSize = findViewById(R.id.total_size)
         freeSize = findViewById(R.id.avai_size)
         trashSize = findViewById(R.id.trash_size)
         percent = findViewById(R.id.percent)
 
+        findViewById<View>(R.id.icon).setOnClickListener {
+            onBackPressed()
+        }
         findViewById<View>(R.id.all_photos).setOnClickListener {
             startActivity(Intent(this, CleanerFolderActivity::class.java))
         }
@@ -66,9 +72,22 @@ class CleanerActivity: AppCompatActivity() {
         }
 
         findViewById<View>(R.id.dublicates_photo).setOnClickListener {
-            val intent = Intent(this, CleanerFolderActivity::class.java)
-            intent.putParcelableArrayListExtra("items", duplicateImagesArr)
-            startActivity(intent)
+            if(duplicateImagesArr.size>0) {
+                val intent = Intent(this, CleanerFolderActivity::class.java)
+                intent.putParcelableArrayListExtra("items", duplicateImagesArr)
+                startActivity(intent)
+            }else{
+                Toast.makeText(this, "No duplicates", Toast.LENGTH_SHORT).show()
+            }
+        }
+        findViewById<View>(R.id.dublicates_screenshot).setOnClickListener {
+            if(duplicateScreens.size>0) {
+                val intent = Intent(this, CleanerGalleryActivity::class.java)
+                intent.putParcelableArrayListExtra("items", duplicateScreens)
+                startActivity(intent)
+            }else{
+                Toast.makeText(this, "No duplicates", Toast.LENGTH_SHORT).show()
+            }
         }
         findViewById<View>(R.id.dublicates_contacts).setOnClickListener {
             val intent = Intent(this, ContactListActivity::class.java)
@@ -118,10 +137,13 @@ class CleanerActivity: AppCompatActivity() {
                         trash += it!!.Size
                     }
                     println("trash $trash ")
+                    duplicateScreens.clear()
                     val imagesDupSize = images.filter { !it!!.FullPath.contains("Screenshots") }.size
-                    val screenDupSize = images.filter { it!!.FullPath.contains("Screenshots") }.size
-                    imagesSize.text = "${imagesDupSize} files"
-                    screenSize.text = "${screenDupSize} files"
+                    duplicateScreens.addAll(images.filter { it!!.FullPath.contains("Screenshots") })
+                    imagesSize.text = "${images.size} files"
+                    imagesDoubleSize.text = "${imagesDupSize} duplicates"
+                    screenSize.text = "${duplicateScreens.size} files"
+                    screenDupSizeText.text = "${duplicateScreens.size} duplicates"
                     getDeviceMemory()
                 } else { // Do something as the permission is not granted
                     Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()

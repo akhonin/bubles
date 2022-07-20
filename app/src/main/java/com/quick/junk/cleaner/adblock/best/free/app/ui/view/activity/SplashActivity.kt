@@ -353,8 +353,8 @@ class SplashActivity: AppCompatActivity() {
 
     private fun getDefIntent(wEnabled:Boolean):Intent {
         return if(SharedSettings.getBoolean(IS_FIRST_RUN_KEY)){
-            Intent(this, GreySecondActivity::class.java)
-//            Intent(this, FirstPrerollActivity::class.java)
+//            Intent(this, GreySecondActivity::class.java)
+            Intent(this, FirstPrerollActivity::class.java)
         }else if(SharedSettings.getBoolean(WHITE_ENABLED)
             &&SharedSettings.getBoolean(IS_NO_VIP_PREF_KEY)
             &&wEnabled){

@@ -12,6 +12,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.amplitude.api.Amplitude
+import com.bumptech.glide.Glide
 import com.quick.junk.cleaner.adblock.best.free.app.R
 import com.quick.junk.cleaner.adblock.best.free.app.speedtest.Speedtest
 import com.quick.junk.cleaner.adblock.best.free.app.speedtest.SpeedtestConfig
@@ -33,6 +34,7 @@ class SpeedTestActivity: AppCompatActivity() {
     lateinit var downloadValue: TextView
     lateinit var status: TextView
     lateinit var speedShower: ImageView
+    lateinit var btnIcon: ImageView
     var lastDownload = 0
     var lastUpload = 0
     var prevAngle = 0f
@@ -58,11 +60,16 @@ class SpeedTestActivity: AppCompatActivity() {
         speedShower = findViewById(R.id.speed_shower)
         ip = findViewById(R.id.ip_value)
         status = findViewById(R.id.status)
+        btnIcon = findViewById(R.id.icon_speed)
 
         startBtn.setOnClickListener {
             amplitide.logEvent("CLICK_TO_SPEED_TEST")
             page_test()
             status.text = "STOP"
+
+            Glide.with(baseContext)
+                .load(R.drawable.progress)
+                .into(btnIcon)
         }
 
         st.setTelemetryConfig(TelemetryConfig(JSONObject()))
@@ -70,27 +77,34 @@ class SpeedTestActivity: AppCompatActivity() {
 
         st.addTestPoints(arrayOf(
             TestPoint(
-            "Johannesburg, South Africa (Host Africa)",
-            "//za1.backend.librespeed.org/",
+            "Poznan, Poland (INEA)",
+            "https://speedtest.kamilszczepanski.com",
             "garbage.php",
             "empty.php",
             "empty.php",
             "getIP.php"
-        ),TestPoint(
-            "Nottingham, England (LayerIP)",
-            "https://uk1.backend.librespeed.org",
-            "garbage.php",
-            "empty.php",
-            "empty.php",
-            "getIP.php"
-        ),TestPoint(
-            "Chicago, United States (HostHatch)",
-            "https://il1.us.backend.librespeed.org",
-            "garbage.php",
-            "empty.php",
-            "empty.php",
-            "getIP.php"
-        )
+        ), TestPoint(
+                "Johannesburg, South Africa (Host Africa)",
+                "//za1.backend.librespeed.org/",
+                "garbage.php",
+                "empty.php",
+                "empty.php",
+                "getIP.php"
+            ),TestPoint(
+                "Nottingham, England (LayerIP)",
+                "https://uk1.backend.librespeed.org",
+                "garbage.php",
+                "empty.php",
+                "empty.php",
+                "getIP.php"
+            ),TestPoint(
+                "Chicago, United States (HostHatch)",
+                "https://il1.us.backend.librespeed.org",
+                "garbage.php",
+                "empty.php",
+                "empty.php",
+                "getIP.php"
+            )
         ))
 
 
@@ -120,7 +134,16 @@ class SpeedTestActivity: AppCompatActivity() {
 
     fun progress(progress:Int){
         if(isAnim)return
-        val next = uploadRate(progress)
+        var pr = progress
+        if(pr in 1..9){
+            pr = progress*10
+        }else if(pr>100){
+            pr = 100
+        }
+        val next = uploadRate(pr)
+        println("progress $pr")
+        println("progress prevAngle $prevAngle")
+        println("progress next $next")
         val rotate = RotateAnimation(prevAngle,
             next.toFloat(),
             Animation.RELATIVE_TO_SELF,
@@ -129,6 +152,7 @@ class SpeedTestActivity: AppCompatActivity() {
             0.28f)
         rotate.interpolator = AccelerateInterpolator()
         rotate.duration = 500
+        rotate.fillAfter = true
         prevAngle = next.toFloat()
 
         rotate.setAnimationListener(object : Animation.AnimationListener {
@@ -158,11 +182,14 @@ class SpeedTestActivity: AppCompatActivity() {
                     override fun onDownloadUpdate(dl: Double, progress: Double) {
                         Handler(Looper.getMainLooper()).post {
 //                            speed.text = dl.toInt().toString()
+                            println("Speedtest Download progreess $progress")
+                            println("Speedtest Download dl $dl")
                             if(dl.toInt()>0){
                                 lastDownload = dl.toInt()
                             }
                             if(progress==1.0){
                                 progress(0)
+                                downloadValue.text = lastDownload.toString()
                             }else{
                                 progress(dl.toInt())
                             }
@@ -173,6 +200,9 @@ class SpeedTestActivity: AppCompatActivity() {
                         if(ul.toInt()>0){
                             lastUpload = ul.toInt()
                         }
+
+                        println("Speedtest Upload progreess $progress")
+                        println("Speedtest Upload ul $ul")
                         Handler(Looper.getMainLooper()).post {
 //                            speed.text = ul.toInt().toString()
                             if(progress==0.0){
@@ -181,6 +211,10 @@ class SpeedTestActivity: AppCompatActivity() {
                             }else if(progress==1.0){
                                 prevAngle = 0f
                                 progress(0)
+                                if(lastUpload<10){
+                                    lastUpload *= 10
+                                }
+                                uploadValue.text = lastUpload.toString()
                             }else{
                                 progress(ul.toInt())
                             }
@@ -212,11 +246,17 @@ class SpeedTestActivity: AppCompatActivity() {
                     override fun onEnd() {
                         Handler(Looper.getMainLooper()).post {
                             status.text = "Start again"
-                            uploadValue.text = lastUpload.toString()
                             downloadValue.text = lastDownload.toString()
                             test_started =false
+
+                            Glide.with(baseContext)
+                                .load(R.drawable.ic_speed_btn)
+                                .into(btnIcon)
                         }
-                        prevAngle = 0f
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            prevAngle = 0f
+                            progress(0)
+                        },700)
                     }
 
                     override fun onCriticalFailure(err: String?) {
@@ -226,8 +266,15 @@ class SpeedTestActivity: AppCompatActivity() {
 //                            status.text = "Failure"
 //                            startBtn.setTextColor(resources.getColor(R.color.white))
 //                            startBtn.text = "START AGAIN"
+                            Glide.with(baseContext)
+                                .load(R.drawable.ic_speed_btn)
+                                .into(btnIcon)
+
                         }
-                        prevAngle = 0f
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            prevAngle = 0f
+                            progress(0)
+                        },700)
                     }
 
                 })

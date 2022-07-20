@@ -2,6 +2,7 @@ package com.quick.junk.cleaner.adblock.best.free.app.ui.view.activity
 
 import android.app.Activity
 import android.app.RecoverableSecurityException
+import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -57,6 +58,9 @@ class CleanerFullScreenActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_image)
 
+        findViewById<View>(R.id.icon).setOnClickListener {
+            onBackPressed()
+        }
         images = intent.getSerializableExtra("items") as ArrayList<MediaItem>
         val selectedItem = intent.getIntExtra("photoIndex",0)
 
@@ -136,7 +140,14 @@ class CleanerFullScreenActivity: AppCompatActivity() {
             } else {
                 performDeleteImage(images[curentItem])
             }
+        }
 
+        findViewById<View>(R.id.share).setOnClickListener {
+            println("images[selectedItem].FileUri ${images[selectedItem].FullPath}")
+            val intent= Intent(Intent.ACTION_SEND);
+            intent.type = "image/jpeg";
+            intent.putExtra(Intent.EXTRA_STREAM, File(images[selectedItem].FullPath).toURI())
+            startActivity(intent)
         }
     }
 

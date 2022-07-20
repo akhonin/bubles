@@ -11,14 +11,14 @@ class FourPrerollActivity: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_preroll_third)
+        setContentView(R.layout.activity_preroll_four)
 
         Glide.with(baseContext)
             .load(R.drawable.preroll_anim_4)
             .into(findViewById(R.id.image))
 
         findViewById<View>(R.id.continue_btn).setOnClickListener {
-            startActivity(Intent(this, MaineActivity::class.java))
+            startActivity(Intent(this, FirstSubActivity::class.java))
             finish()
         }
     }

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.quick.junk.cleaner.adblock.best.free.app.R
@@ -50,6 +51,9 @@ class MediaGalleryAdapter(
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(convertView.findViewById(R.id.image))
 
+            if(courseList[position].IsVideo){
+                convertView.findViewById<View>(R.id.play).isVisible = true
+            }
             convertView.setOnClickListener {
                 onItemClick?.invoke(position)
             }

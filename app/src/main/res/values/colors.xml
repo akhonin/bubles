@@ -11,6 +11,7 @@
     <color name="blue_color">#05D4EA</color>
     <color name="grey_color">#737373</color>
     <color name="red_color">#E74C3C</color>
+    <color name="orange_color">#F47D70</color>
     <color name="transparent_white_color">#F2FFFFFF</color>
     <color name="transparent_base_color">#F27375D8</color>
 </resources>

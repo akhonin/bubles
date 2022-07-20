@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.isVisible
 import com.quick.junk.cleaner.adblock.best.free.app.R
 import com.quick.junk.cleaner.adblock.best.free.app.data.FolderItem
 
@@ -24,6 +25,7 @@ class MediaFolderAdapter(
     private lateinit var name: TextView
     private lateinit var count: TextView
     private lateinit var image: ImageView
+    private lateinit var play: ImageView
 
     var onItemClick: ((FolderItem) -> Unit)? = null
 
@@ -53,6 +55,7 @@ class MediaFolderAdapter(
         image = convertView!!.findViewById(R.id.image)
         name = convertView.findViewById(R.id.name)
         count = convertView.findViewById(R.id.count)
+        play = convertView.findViewById(R.id.play)
 
         if(courseList[position].IsVideo){
             val thumb = ThumbnailUtils.createVideoThumbnail(
@@ -60,6 +63,7 @@ class MediaFolderAdapter(
                 MediaStore.Images.Thumbnails.MINI_KIND
             )
             image.setImageBitmap(thumb)
+            play.isVisible = true
         }else {
             image.setImageBitmap(BitmapFactory.decodeFile(courseList[position].FolderPhoto))
         }

@@ -14,10 +14,6 @@ class GreySecondActivity: AppCompatActivity() {
         Glide.with(baseContext)
             .load(R.drawable.grey_2)
             .into(findViewById(R.id.image))
-
-        Glide.with(baseContext)
-            .load(R.drawable.grey_first)
-            .into(findViewById(R.id.animation))
     }
 
 }

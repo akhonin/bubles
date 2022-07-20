@@ -36,7 +36,9 @@ class ContactsActivity: AppCompatActivity()  {
 
         contacts = intent.getSerializableExtra("contacts") as ArrayList<ContactItem>
 
-
+        findViewById<View>(R.id.icon).setOnClickListener {
+            onBackPressed()
+        }
         val listAdapter = ContactGroupRecyclerAdapter()
         contactsList.adapter = listAdapter
         contactsList.layoutManager = LinearLayoutManager(baseContext, LinearLayoutManager.VERTICAL, false)

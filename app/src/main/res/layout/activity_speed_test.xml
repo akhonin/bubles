@@ -99,8 +99,8 @@
         android:layout_height="wrap_content"
         android:background="@drawable/speed_test_bg"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:paddingTop="20dp"
         android:paddingBottom="20dp"
         android:paddingStart="40dp"
@@ -123,7 +123,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Download:"
+                android:text="Download (Mbps):"
                 android:textColor="@color/grey_color"
                 android:textSize="18sp" />
             <TextView
@@ -139,12 +139,12 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="5dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Upload:"
+                android:text="Upload (Mbps):"
                 android:textColor="@color/grey_color"
                 android:textSize="18sp" />
             <TextView
@@ -160,14 +160,14 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="5dp">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ping:"
-                android:textSize="18sp"
+                android:text="Ping (ms):"
                 android:textColor="@color/grey_color"
-                />
+                android:textSize="18sp" />
             <TextView
                 android:id="@+id/ping_value"
                 android:layout_width="wrap_content"
@@ -181,7 +181,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="5dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -202,7 +202,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="5dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -223,7 +223,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="5dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

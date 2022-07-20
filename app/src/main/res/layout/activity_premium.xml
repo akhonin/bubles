@@ -100,8 +100,8 @@
             android:layout_height="wrap_content"
             android:textColor="@color/grey_color"
             android:gravity="center"
-            android:text="Get 7 Days Free Trial, after \nfor $13.99/ month"
-            android:textSize="10sp"
+            android:text="Get 7 Days Free Trial, after \nfor $29.99/ month"
+            android:textSize="8sp"
             android:layout_marginTop="15dp"
             />
     </LinearLayout>
@@ -141,8 +141,8 @@
             android:layout_height="wrap_content"
             android:textColor="@color/grey_color"
             android:gravity="center"
-            android:text="Get 3 Days Free Trial, after \nfor $7.99/ week"
-            android:textSize="10sp"
+            android:text="Get 3 Days Free Trial, after \nfor $11.99/ week"
+            android:textSize="8sp"
             android:layout_marginTop="15dp"
             />
     </LinearLayout>
@@ -182,8 +182,8 @@
             android:layout_height="wrap_content"
             android:textColor="@color/grey_color"
             android:gravity="center"
-            android:text="Get 7 Days Free Trial, after for \n $84.99/ year"
-            android:textSize="10sp"
+            android:text="Get 7 Days Free Trial, after for \n $89.99/ year"
+            android:textSize="8sp"
             android:layout_marginTop="15dp"
             />
     </LinearLayout>
