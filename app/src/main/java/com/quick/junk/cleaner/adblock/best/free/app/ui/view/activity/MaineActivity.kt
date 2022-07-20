@@ -14,14 +14,17 @@ class MaineActivity: AppCompatActivity() {
         setContentView(R.layout.activity_maine)
 
         findViewById<View>(R.id.speed_test).setOnClickListener {
-            startActivity(Intent(this, SpeedTestActivity::class.java))
+            startActivity(Intent(this, PremiumActivity::class.java))
+//            startActivity(Intent(this, SpeedTestActivity::class.java))
         }
 
         findViewById<View>(R.id.adblock).setOnClickListener {
-            startActivity(Intent(this, AdBlockActivity::class.java))
+            startActivity(Intent(this, PremiumActivity::class.java))
+//            startActivity(Intent(this, AdBlockActivity::class.java))
         }
         findViewById<View>(R.id.cleaner).setOnClickListener {
-            startActivity(Intent(this, CleanerActivity::class.java))
+            startActivity(Intent(this, PremiumActivity::class.java))
+//            startActivity(Intent(this, CleanerActivity::class.java))
         }
 
         findViewById<View>(R.id.premium).setOnClickListener {
